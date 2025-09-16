@@ -49,25 +49,9 @@ const StatsDialog = ({
     }
   };
 
-  const getSectionIcon = (title) => {
-    switch (title) {
-      case "Performance":
-        return "⚡";
-      case "Quadtree":
-        return "🌳";
-      case "Viewport":
-        return "🔍";
-      default:
-        return "📊";
-    }
-  };
-
   const renderStatsSection = (sectionTitle, items) => (
     <div key={sectionTitle} className="stats-section">
-      <h4 className="stats-section-title">
-        <span className="section-icon">{getSectionIcon(sectionTitle)}</span>
-        {sectionTitle}
-      </h4>
+      <h4 className="stats-section-title">{sectionTitle}</h4>
       {items.map(({ label, value, unit = "" }) => (
         <div key={label} className="stats-item">
           <span className="stats-label">{label}:</span>

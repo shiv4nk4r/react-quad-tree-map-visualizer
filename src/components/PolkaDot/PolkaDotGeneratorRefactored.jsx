@@ -132,7 +132,7 @@ const GenericQuadtreeVisualization = ({
 const PolkaDotGenerator = () => {
   // Polka dot configuration
   const [dotSize] = useState(2);
-  const [dotSpacing] = useState(12);
+  const [dotSpacing] = useState(9);
   const [dotColor] = useState("#8a2be2");
 
   // Performance monitoring for data generation
@@ -141,8 +141,8 @@ const PolkaDotGenerator = () => {
   // World dimensions (3x screen size for panning area)
   const worldBounds = useMemo(
     () => ({
-      width: window.innerWidth * 3,
-      height: window.innerHeight * 3,
+      width: window.innerWidth * 4,
+      height: window.innerHeight * 4,
     }),
     []
   );
@@ -215,8 +215,8 @@ const PolkaDotGenerator = () => {
       renderItem={renderDot}
       worldBounds={worldBounds}
       initialScale={3}
-      minScale={0.1}
-      maxScale={5}
+      minScale={0.3}
+      maxScale={10}
       bufferScale={0.2}
       title="Polka Dot Demo"
       showQuadtreeDefault={true}
