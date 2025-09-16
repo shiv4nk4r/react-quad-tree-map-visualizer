@@ -1,12 +1,6 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useRef,
-  useCallback,
-} from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-import { Quadtree, Rectangle } from "../../utils/Quadtree"; // Import our new classes
+import { Quadtree, Rectangle } from "../../utils/Quadtree";
 import "./PolkaDotGenerator.css";
 
 // The SVG component now takes the queried dots and quadtree boundaries
