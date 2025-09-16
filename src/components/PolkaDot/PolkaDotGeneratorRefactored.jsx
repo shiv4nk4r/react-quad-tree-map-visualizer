@@ -138,7 +138,7 @@ const PolkaDotGenerator = () => {
   // Performance monitoring for data generation
   const { updateMetrics } = usePerformanceMonitor();
 
-  // World dimensions (3x screen size for panning area)
+  // World dimensions (4x screen size for panning area)
   const worldBounds = useMemo(
     () => ({
       width: window.innerWidth * 4,

@@ -81,10 +81,6 @@
   display: inline-block;
 }
 
-.toggle-icon.open {
-  animation: pulse 2s infinite;
-}
-
 .toggle-icon.close {
   font-size: 16px;
   font-weight: bold;

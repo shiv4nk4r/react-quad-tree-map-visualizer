@@ -1,5 +1,6 @@
 import React from "react";
 import "./StatsDialog.css";
+import { IconInfoCircle } from "@tabler/icons-react";
 
 /**
  * StatsDialog - A reusable component for displaying performance and debug information
@@ -108,7 +109,9 @@ const StatsDialog = ({
         {isVisible ? (
           <span className="toggle-icon close">✕</span>
         ) : (
-          <span className="toggle-icon open">stats</span>
+          <span className="toggle-icon open">
+            <IconInfoCircle />
+          </span>
         )}
       </button>
       {isVisible && (
