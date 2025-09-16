@@ -9,6 +9,7 @@ import { Quadtree, Rectangle } from "../../utils/Quadtree";
  * @param {Object} viewport - Current viewport {x, y, width, height, scale}
  * @param {Object} worldBounds - World boundaries {width, height}
  * @param {number} bufferScale - Buffer around viewport (0.2 = 20% buffer)
+ * @param {boolean} bypassQuadtree - If true, render all items without quadtree optimization
  * @param {Function} onPerformanceUpdate - Callback for performance metrics
  */
 const QuadtreeRenderer = ({
@@ -18,6 +19,7 @@ const QuadtreeRenderer = ({
   viewport,
   worldBounds,
   bufferScale = 0.2,
+  bypassQuadtree = false,
   onPerformanceUpdate,
   children,
 }) => {
@@ -59,8 +61,17 @@ const QuadtreeRenderer = ({
     });
   }, [buildTime, itemCount, onPerformanceUpdate]);
 
-  // Get visible items based on viewport
+  // Get visible items based on viewport and bypass setting
   const { visibleItems, queryTime, visibleCount } = useMemo(() => {
+    if (bypassQuadtree) {
+      // Bypass quadtree - render all items directly
+      return {
+        visibleItems: items.map((item) => ({ originalItem: item })),
+        queryTime: 0,
+        visibleCount: items.length,
+      };
+    }
+
     if (!quadtree || !viewport)
       return { visibleItems: [], queryTime: 0, visibleCount: 0 };
 
@@ -78,27 +89,39 @@ const QuadtreeRenderer = ({
     );
 
     // Query the quadtree
-    const items = quadtree.query(bufferedViewport);
+    const quadtreeItems = quadtree.query(bufferedViewport);
 
     const queryTime = performance.now() - queryStartTime;
 
     return {
-      visibleItems: items,
+      visibleItems: quadtreeItems,
       queryTime,
-      visibleCount: items.length,
+      visibleCount: quadtreeItems.length,
     };
-  }, [quadtree, viewport, bufferScale]);
+  }, [quadtree, viewport, bufferScale, bypassQuadtree, items]);
 
   // Report query performance after render
   useEffect(() => {
-    if (queryTime > 0) {
+    if (bypassQuadtree) {
+      onPerformanceUpdate?.({
+        type: "direct_render",
+        time: 0,
+        visibleCount: items.length,
+      });
+    } else if (queryTime > 0) {
       onPerformanceUpdate?.({
         type: "quadtree_query",
         time: queryTime,
         visibleCount: visibleCount,
       });
     }
-  }, [queryTime, visibleCount, onPerformanceUpdate]);
+  }, [
+    queryTime,
+    visibleCount,
+    onPerformanceUpdate,
+    bypassQuadtree,
+    items.length,
+  ]);
 
   // Get visible quadtree boundaries for visualization
   const getVisibleBounds = useCallback(() => {

@@ -72,6 +72,7 @@ const StatsDialog = ({
         { label: "FPS", value: stats.fps },
         // { label: "Frame Time", value: stats.frameTime, unit: "ms" },
         { label: "Render Time", value: stats.renderTime, unit: "ms" },
+        { label: "Render Mode", value: stats.renderMode },
         // { label: "Query Time", value: stats.queryTime, unit: "ms" },
       ].filter((item) => item.value !== undefined),
     },

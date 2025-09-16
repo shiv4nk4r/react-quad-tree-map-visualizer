@@ -32,6 +32,7 @@ const GenericQuadtreeVisualization = ({
   // Component state
   const [showStats, setShowStats] = useState(showStatsDefault);
   const [showQuadtree, setShowQuadtree] = useState(showQuadtreeDefault);
+  const [bypassQuadtree, setBypassQuadtree] = useState(false);
   const [viewport, setViewport] = useState(null);
   const [transform, setTransform] = useState({
     scale: initialScale,
@@ -73,6 +74,7 @@ const GenericQuadtreeVisualization = ({
       : "N/A",
     zoom: transform.scale.toFixed(2),
     totalItems: items.length,
+    renderMode: bypassQuadtree ? "Direct" : "Quadtree",
   };
 
   // Actions for the stats dialog
@@ -81,6 +83,11 @@ const GenericQuadtreeVisualization = ({
       label: showQuadtree ? "Hide Quadtree" : "Show Quadtree",
       onClick: () => setShowQuadtree(!showQuadtree),
       className: "primary",
+    },
+    {
+      label: bypassQuadtree ? "Use Quadtree" : "Bypass Quadtree",
+      onClick: () => setBypassQuadtree(!bypassQuadtree),
+      className: bypassQuadtree ? "warning" : "secondary",
     },
   ];
 
@@ -101,6 +108,7 @@ const GenericQuadtreeVisualization = ({
           viewport={viewport}
           worldBounds={worldBounds}
           bufferScale={bufferScale}
+          bypassQuadtree={bypassQuadtree}
           onPerformanceUpdate={handlePerformanceUpdate}
         >
           {({ getVisibleBounds }) => (

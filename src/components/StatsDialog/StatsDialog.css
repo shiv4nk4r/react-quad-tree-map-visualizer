@@ -319,6 +319,25 @@
   box-shadow: 0 4px 16px rgba(100, 150, 255, 0.2);
 }
 
+.stats-action-button.warning {
+  background: linear-gradient(
+    135deg,
+    rgba(250, 204, 21, 0.2),
+    rgba(250, 204, 21, 0.1)
+  );
+  border-color: rgba(250, 204, 21, 0.3);
+}
+
+.stats-action-button.warning:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(250, 204, 21, 0.3),
+    rgba(250, 204, 21, 0.15)
+  );
+  border-color: rgba(250, 204, 21, 0.5);
+  box-shadow: 0 4px 16px rgba(250, 204, 21, 0.2);
+}
+
 @keyframes slideInUp {
   from {
     opacity: 0;
