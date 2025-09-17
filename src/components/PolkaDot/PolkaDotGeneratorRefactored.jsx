@@ -142,17 +142,18 @@ const PolkaDotGenerator = () => {
   const [dotSize] = useState(2);
   const [dotSpacing] = useState(9);
   const [dotColor] = useState("#8a2be2");
+  const [worldSizeMultiplier, setWorldSizeMultiplier] = useState(1);
 
   // Performance monitoring for data generation
   const { updateMetrics } = usePerformanceMonitor();
 
-  // World dimensions (4x screen size for panning area)
+  // World dimensions (base 2x screen size, multiplied by user preference)
   const worldBounds = useMemo(
     () => ({
-      width: window.innerWidth * 4,
-      height: window.innerHeight * 4,
+      width: window.innerWidth * 2 * worldSizeMultiplier,
+      height: window.innerHeight * 2 * worldSizeMultiplier,
     }),
-    []
+    [worldSizeMultiplier]
   );
 
   // Generate polka dot data
@@ -217,19 +218,43 @@ const PolkaDotGenerator = () => {
   );
 
   return (
-    <GenericQuadtreeVisualization
-      items={dots}
-      getItemBounds={getItemBounds}
-      renderItem={renderDot}
-      worldBounds={worldBounds}
-      initialScale={3}
-      minScale={0.3}
-      maxScale={10}
-      bufferScale={0.2}
-      title="Polka Dot Demo"
-      showQuadtreeDefault={true}
-      showStatsDefault={true}
-    />
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <GenericQuadtreeVisualization
+        items={dots}
+        getItemBounds={getItemBounds}
+        renderItem={renderDot}
+        worldBounds={worldBounds}
+        initialScale={3}
+        minScale={0.3}
+        maxScale={10}
+        bufferScale={0.2}
+        title="Polka Dot Demo"
+        showQuadtreeDefault={true}
+        showStatsDefault={true}
+      />
+
+      {/* World Size Multiplier Slider */}
+      <div className="world-size-slider-container">
+        <div className="world-size-slider-content">
+          <label htmlFor="world-size-slider" className="slider-label">
+            World Size: {worldSizeMultiplier.toFixed(1)}x
+          </label>
+          <input
+            id="world-size-slider"
+            type="range"
+            min="1"
+            max="4"
+            step="0.1"
+            value={worldSizeMultiplier}
+            onChange={(e) => setWorldSizeMultiplier(parseFloat(e.target.value))}
+            className="world-size-slider"
+          />
+          <div className="slider-disclaimer">
+            ⚠️ Increasing this may cause crashes if quadtree is bypassed
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
