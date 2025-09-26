@@ -82,8 +82,9 @@
 }
 
 .toggle-icon.close {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
+  line-height: 1;
 }
 
 @keyframes pulse {
@@ -110,6 +111,9 @@
   );
   margin-top: 1px;
   border-radius: 0 0 15px 15px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 70vh; /* Prevent excessive height */
 }
 
 .stats-title {
@@ -350,25 +354,209 @@
 }
 
 /* Mobile responsiveness */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .stats-dialog {
-    margin: 16px;
-    left: 16px !important;
-    right: 16px !important;
-    bottom: 16px !important;
+    margin: 12px;
+    max-width: calc(100vw - 24px);
+    max-height: calc(
+      100vh - 120px
+    ); /* Ensure it doesn't exceed viewport height */
+    overflow: hidden;
+  }
+
+  .stats-dialog.bottom-right,
+  .stats-dialog.bottom-left {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    max-width: calc(100vw - 24px); /* Full width since no slider */
+  }
+
+  .stats-dialog.top-right,
+  .stats-dialog.top-left {
+    left: 12px !important;
+    right: 12px !important;
+    top: 12px !important;
   }
 
   .stats-content {
     min-width: auto;
     max-width: none;
+    padding: 12px;
+    max-height: calc(100vh - 200px); /* Limit content height */
+    overflow-y: auto; /* Allow scrolling if content is too tall */
+  }
+
+  .stats-toggle {
+    padding: 10px 14px;
+    font-size: 16px;
+    min-height: 44px; /* Better touch target */
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+
+  .stats-section {
+    padding: 8px;
+    margin-bottom: 8px;
   }
 
   .stats-actions {
     flex-direction: column;
+    gap: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
   }
 
   .stats-action-button {
     min-width: auto;
+    padding: 8px 12px;
+    min-height: 40px; /* Better touch target */
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-dialog {
+    margin: 8px;
+    max-width: calc(100vw - 16px);
+    max-height: calc(
+      100vh - 80px
+    ); /* More restrictive height on small screens */
+  }
+
+  .stats-dialog.bottom-right,
+  .stats-dialog.bottom-left {
+    left: 8px !important;
+    right: 8px !important;
+    bottom: 8px !important; /* Back to normal bottom position */
+    max-width: calc(100vw - 16px); /* Full width available */
+  }
+
+  .stats-dialog.top-right,
+  .stats-dialog.top-left {
+    left: 8px !important;
+    right: 8px !important;
+    top: 8px !important;
+  }
+
+  .stats-content {
+    padding: 8px;
+    max-height: calc(100vh - 150px); /* Very limited content height */
+    overflow-y: auto;
+  }
+
+  .stats-toggle {
+    padding: 8px 12px;
+    font-size: 14px;
+    min-height: 44px; /* Keep good touch target */
+    flex-shrink: 0;
+  }
+
+  .stats-section {
+    padding: 6px;
+    margin-bottom: 6px;
+  }
+
+  .stats-section-title {
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .stats-item {
+    margin: 3px 0;
+    padding: 2px 0;
+  }
+
+  .stats-label {
+    font-size: 8px;
+  }
+
+  .stats-value {
+    font-size: 11px;
+  }
+
+  .stats-actions {
+    gap: 4px;
+    margin-top: 6px;
+    padding-top: 6px;
+  }
+
+  .stats-action-button {
+    padding: 6px 10px;
+    min-height: 36px;
+    font-size: 9px;
+  }
+
+  /* Ensure close button is always visible and accessible */
+  .toggle-icon.close {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Extra small screens - very compact layout */
+@media (max-width: 360px) {
+  .stats-dialog {
+    margin: 4px;
+    max-width: calc(100vw - 8px);
+    max-height: calc(100vh - 60px);
+  }
+
+  .stats-dialog.bottom-right,
+  .stats-dialog.bottom-left {
+    left: 4px !important;
+    right: 4px !important;
+    bottom: 4px !important; /* Back to normal bottom position */
+    max-width: calc(100vw - 8px); /* Full width available */
+  }
+
+  .stats-dialog.top-right,
+  .stats-dialog.top-left {
+    left: 4px !important;
+    right: 4px !important;
+    max-width: calc(100vw - 8px);
+  }
+
+  .stats-content {
+    padding: 6px;
+    max-height: calc(100vh - 120px);
+  }
+
+  .stats-toggle {
+    padding: 6px 10px;
+    min-height: 40px;
+    font-size: 13px;
+  }
+
+  .stats-section {
+    padding: 4px;
+    margin-bottom: 4px;
+  }
+
+  .stats-section-title {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+
+  .stats-item {
+    margin: 2px 0;
+  }
+
+  .stats-label {
+    font-size: 7px;
+  }
+
+  .stats-value {
+    font-size: 10px;
+  }
+
+  .stats-action-button {
+    padding: 4px 8px;
+    min-height: 32px;
+    font-size: 8px;
   }
 }
 

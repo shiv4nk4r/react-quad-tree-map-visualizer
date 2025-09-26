@@ -93,6 +93,8 @@ const ZoomPanContainer = ({
     top: 0,
     left: 0,
     background: "#1a1a1a",
+    touchAction: "none", // Prevent default touch behaviors for better mobile interaction
+    userSelect: "none", // Prevent text selection on mobile
     ...containerStyle,
   };
 
@@ -104,6 +106,9 @@ const ZoomPanContainer = ({
         maxScale={maxScale}
         centerOnInit={true}
         wheel={{ step: 0.1 }}
+        pinch={{ step: 5 }} // Enable pinch-to-zoom on mobile
+        doubleClick={{ disabled: false, step: 0.7 }} // Enable double-tap zoom
+        smooth={true}
         onTransformed={handleTransformChange}
         {...transformWrapperProps}
       >

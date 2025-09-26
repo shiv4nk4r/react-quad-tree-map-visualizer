@@ -22,6 +22,9 @@ const StatsDialog = ({
   position = "bottom-right",
   title = "Stats",
 }) => {
+  // Auto-adjust position for mobile
+  const isMobile = window.innerWidth <= 768;
+  const effectivePosition = isMobile ? "bottom-right" : position;
   const formatValue = (value) => {
     if (typeof value === "number") {
       // Format numbers nicely
@@ -98,7 +101,9 @@ const StatsDialog = ({
 
   return (
     <div
-      className={`stats-dialog ${position} ${isVisible ? "visible" : ""}`}
+      className={`stats-dialog ${effectivePosition} ${
+        isVisible ? "visible" : ""
+      }`}
       style={style}
     >
       <button
@@ -108,7 +113,7 @@ const StatsDialog = ({
         title={isVisible ? "Hide stats" : "Show performance stats"}
       >
         {isVisible ? (
-          <span className="toggle-icon close">✕</span>
+          <span className="toggle-icon close">×</span>
         ) : (
           <span className="toggle-icon open">
             <IconInfoCircle />

@@ -43,7 +43,9 @@ function App() {
       </div>
 
       {/* Current Example Component */}
-      <CurrentComponent />
+      <div className="example-container">
+        <CurrentComponent />
+      </div>
     </div>
   );
 }
