@@ -27,8 +27,10 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Enable Corepack and setup Yarn
+        run: |
+          corepack enable
+          corepack use yarn@4.9.2
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
