@@ -148,13 +148,15 @@ const PolkaDotGenerator = () => {
   const { updateMetrics } = usePerformanceMonitor();
 
   // World dimensions (base 2x screen size, multiplied by user preference)
-  const worldBounds = useMemo(
-    () => ({
-      width: window.innerWidth * 2 * worldSizeMultiplier,
-      height: window.innerHeight * 2 * worldSizeMultiplier,
-    }),
-    [worldSizeMultiplier]
-  );
+  // Use a mobile-friendly base size calculation
+  const worldBounds = useMemo(() => {
+    const isMobile = window.innerWidth <= 768;
+    const baseMultiplier = isMobile ? 1.5 : 2; // Smaller base world for mobile
+    return {
+      width: window.innerWidth * baseMultiplier * worldSizeMultiplier,
+      height: window.innerHeight * baseMultiplier * worldSizeMultiplier,
+    };
+  }, [worldSizeMultiplier]);
 
   // Generate polka dot data
   const dots = useMemo(() => {
@@ -218,15 +220,18 @@ const PolkaDotGenerator = () => {
   );
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    <div
+      style={{ position: "relative", width: "100%", height: "100%" }}
+      className="touch-safe"
+    >
       <GenericQuadtreeVisualization
         items={dots}
         getItemBounds={getItemBounds}
         renderItem={renderDot}
         worldBounds={worldBounds}
-        initialScale={3}
-        minScale={0.3}
-        maxScale={10}
+        initialScale={window.innerWidth <= 768 ? 2 : 3}
+        minScale={0.1}
+        maxScale={15}
         bufferScale={0.2}
         title="Polka Dot Demo"
         showQuadtreeDefault={true}

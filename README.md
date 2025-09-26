@@ -32,11 +32,21 @@ This project showcases:
 
 ### Interactive Controls
 
-- **Zoom**: Mouse wheel or touch gestures to zoom in/out (0.1x to 10x)
-- **Pan**: Click and drag to navigate around the world
+- **Zoom**: Mouse wheel, pinch-to-zoom, or double-tap to zoom in/out (0.1x to 15x)
+- **Pan**: Click and drag or touch and drag to navigate around the world
 - **Toggle Quadtree Visualization**: See the spatial partitioning boundaries
 - **Performance Stats Dialog**: Real-time metrics and controls
 - **Example Switcher**: Compare different types of visualizations
+- **Mobile Optimized**: Fully responsive design with touch-friendly controls
+
+### 📱 Mobile Features
+
+- **Touch Gestures**: Full support for touch navigation, pinch-to-zoom, and pan
+- **Responsive Layout**: Adapts to all screen sizes from phone to desktop
+- **Touch-Friendly Controls**: Properly sized buttons and interactive elements (44px minimum)
+- **Landscape Mode**: Optimized layouts for both portrait and landscape orientations
+- **Safe Area Support**: Proper spacing on devices with notches and rounded corners
+- **Performance Optimized**: Smaller base world size on mobile for better performance
 
 ## 🛠️ Technical Architecture
 
